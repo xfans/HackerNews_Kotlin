@@ -1,2 +1,2 @@
-# HackNews_Kotlin
-A hackNews app written using Kotlin language base MVP
+# HackerNews_Kotlin
+A hackerNews app written using Kotlin language base MVP
