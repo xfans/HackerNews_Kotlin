@@ -26,7 +26,7 @@ class MainPresenter(view : MainContract.View) :MainContract.Presenter {
             }
 
             override fun onResponse(response: Post?) {
-
+                mView.addItem(response!!)
             }
 
             override fun onError(message: String) {
