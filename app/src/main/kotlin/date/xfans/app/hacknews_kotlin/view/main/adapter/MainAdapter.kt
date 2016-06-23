@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.item_main.view.*
 /**
  * Created by zhu on 2016/6/22.
  */
-class MainAdapter( lists:List<Post>): RecyclerView.Adapter<MainAdapter.ViewHolder>() {
+class MainAdapter( lists:List<Post>, var itemClick : (Post) -> Unit): RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
     var mLists: List<Post>
 
@@ -24,9 +24,7 @@ class MainAdapter( lists:List<Post>): RecyclerView.Adapter<MainAdapter.ViewHolde
         mLists = lists
     }
 
-    override fun getItemCount(): Int {
-        return mLists.size
-    }
+    override fun getItemCount() = mLists.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder? {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_main, parent, false)
@@ -39,7 +37,7 @@ class MainAdapter( lists:List<Post>): RecyclerView.Adapter<MainAdapter.ViewHolde
         holder.itemView.title.text = post.title
 
         holder.itemView.setOnClickListener {
-
+            itemClick(post)
         }
     }
 

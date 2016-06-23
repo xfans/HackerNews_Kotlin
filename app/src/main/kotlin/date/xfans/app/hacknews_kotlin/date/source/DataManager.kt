@@ -40,10 +40,11 @@ object DataManager: DataSource{
     override fun getStories(callback : ResultCallBack<Post>) {
         hackerNewsService.getTopStories().enqueue(object : Callback<List<Long>> {
             override fun onResponse(call: Call<List<Long>>?, response: retrofit2.Response<List<Long>>?) {
-                var list: List<Long>? = response?.body()
+                var list: List<Long>? = response?.body()?.take(20) //test get 20
 
                 list?.forEachIndexed { i, v
-                    -> hackerNewsService.getStoryItem(v.toString()).enqueue(object : Callback<Post>{
+                    ->
+                    hackerNewsService.getStoryItem(v.toString()).enqueue(object : Callback<Post>{
                     override fun onFailure(call: Call<Post>?, t: Throwable?) {
 
                     }

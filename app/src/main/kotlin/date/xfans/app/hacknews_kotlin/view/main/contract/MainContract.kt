@@ -10,8 +10,10 @@ import date.xfans.app.hacknews_kotlin.date.Post
 interface MainContract{
     interface View: BaseView<Presenter>{
         fun addItem(post: Post)
+        fun showTaskDetailsUi(title: String, url: String)
     }
     interface Presenter: BasePresenter{
+        fun openDetails(it: Post)
 
     }
 }
