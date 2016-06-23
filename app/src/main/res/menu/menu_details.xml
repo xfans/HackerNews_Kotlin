@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context=".ui.main.activity.MainActivity">
+
+    <item
+        android:id="@+id/action_browser"
+        android:orderInCategory="99"
+        android:title="Open with browser"
+        app:showAsAction="never"/>
+</menu>

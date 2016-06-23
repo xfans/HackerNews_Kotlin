@@ -23,16 +23,13 @@ import kotlin.properties.Delegates
 class MainFragment : Fragment(), MainContract.View {
 
 
+
     var mPresenter: MainContract.Presenter by Delegates.notNull()
-    var mAdapter: MainAdapter?
+    var mAdapter: MainAdapter by Delegates.notNull()
     var mStories = ArrayList<Post>()
 
     companion object {
         fun newInstance() = MainFragment()
-    }
-
-    init {
-        mAdapter = null
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +49,9 @@ class MainFragment : Fragment(), MainContract.View {
         recyclerView1.layoutManager = LinearLayoutManager(activity)
         recyclerView1.adapter = mAdapter
         recyclerView1.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL_LIST));
+        swipeRefreshLayout.setOnRefreshListener {
+            mPresenter.getStories(true)
+        }
         mPresenter.start()
     }
 
@@ -65,7 +65,7 @@ class MainFragment : Fragment(), MainContract.View {
 
     override fun addItem(post: Post) {
         mStories.add(post)
-        mAdapter?.notifyItemChanged(mStories.size - 1)
+        mAdapter.notifyItemChanged(mStories.size - 1)
     }
 
     override fun showTaskDetailsUi(title: String, url: String) {
@@ -74,5 +74,15 @@ class MainFragment : Fragment(), MainContract.View {
         ex.putString("title", title)
         activity.start<DetailsActivity>(ex)
     }
+    override fun showLoading(flag: Boolean) {
+        if(swipeRefreshLayout.isRefreshing == flag)return
+        swipeRefreshLayout.post(Runnable {
+            swipeRefreshLayout.setRefreshing(flag)
+        })
+    }
 
+    override fun clearList() {
+        mStories.clear()
+        mAdapter.notifyDataSetChanged()
+    }
 }

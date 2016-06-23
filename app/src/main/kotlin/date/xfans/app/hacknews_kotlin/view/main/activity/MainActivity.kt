@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import date.xfans.app.hacknews_kotlin.R
 import date.xfans.app.hacknews_kotlin.base.addFragmentToActivity
+import date.xfans.app.hacknews_kotlin.base.openBrowser
 import date.xfans.app.hacknews_kotlin.view.main.fragment.MainFragment
 import date.xfans.app.hacknews_kotlin.view.main.presenter.MainPresenter
 
@@ -35,11 +36,7 @@ class MainActivity : AppCompatActivity(){
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
                 R.id.action_github -> {
-                    var intent = Intent()
-                    intent.setAction("android.intent.action.VIEW")
-                    var content_url = Uri.parse("https://github.com/xfans/HackerNews_Kotlin")
-                    intent.setData(content_url)
-                    startActivity(intent)
+                    openBrowser("https://github.com/xfans/HackerNews_Kotlin")
                 return true
             }
         }

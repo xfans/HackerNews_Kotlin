@@ -50,20 +50,31 @@ class DetailsFragment : Fragment(), DetailsContract.View{
                 view.loadUrl(url)
                 return super.shouldOverrideUrlLoading(view, url)
             }
-        })
 
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+                mPresenter.openUrlFinished()
+            }
+        })
+        var url = arguments.getString("url")
+        mPresenter.openUrl(url)
     }
 
     override fun onResume() {
         super.onResume()
-        var url = arguments.getString("url")
-        mPresenter.openUrl(url)
-        mPresenter.start()
+
     }
     override fun setPresenter(presenter: DetailsContract.Presenter) {
         this.mPresenter = presenter
     }
     override fun openWebView(url: String) {
         webView.loadUrl(url)
+    }
+
+    override fun showLoading(flag: Boolean) {
+        if(swipeRefreshLayout.isRefreshing == flag)return
+        swipeRefreshLayout.post(Runnable {
+            swipeRefreshLayout.setRefreshing(flag)
+        })
     }
 }

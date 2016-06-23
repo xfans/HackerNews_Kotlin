@@ -3,6 +3,7 @@ package date.xfans.app.hacknews_kotlin.base
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
@@ -70,4 +71,12 @@ fun AppCompatActivity.addFragmentToActivity(fragment: Fragment, frameId: Int) {
     val transaction = supportFragmentManager.beginTransaction()
     transaction.add(frameId, fragment)
     transaction.commit()
+}
+
+fun AppCompatActivity.openBrowser(url: String) {
+    var intent = Intent()
+    intent.setAction("android.intent.action.VIEW")
+    var content_url = Uri.parse(url)
+    intent.setData(content_url)
+    startActivity(intent)
 }

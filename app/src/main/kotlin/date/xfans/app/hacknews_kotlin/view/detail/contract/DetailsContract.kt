@@ -9,9 +9,10 @@ import date.xfans.app.hacknews_kotlin.base.BaseView
 interface DetailsContract{
     interface View: BaseView<Presenter> {
         fun openWebView(url: String)
+        fun showLoading(flag: Boolean)
     }
     interface Presenter: BasePresenter {
         fun openUrl(url: String?)
-
+        fun openUrlFinished()
     }
 }

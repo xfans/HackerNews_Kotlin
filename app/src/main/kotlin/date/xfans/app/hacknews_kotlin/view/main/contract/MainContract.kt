@@ -11,9 +11,12 @@ interface MainContract{
     interface View: BaseView<Presenter>{
         fun addItem(post: Post)
         fun showTaskDetailsUi(title: String, url: String)
+        fun showLoading(flag: Boolean)
+        fun clearList()
     }
     interface Presenter: BasePresenter{
         fun openDetails(it: Post)
+        fun getStories(isRefresh: Boolean)
 
     }
 }

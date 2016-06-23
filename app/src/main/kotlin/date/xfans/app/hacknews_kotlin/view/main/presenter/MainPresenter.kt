@@ -18,25 +18,32 @@ class MainPresenter(view : MainContract.View) :MainContract.Presenter {
         mView.setPresenter(this)
     }
     override fun start() {
-        getStories()
+        getStories(false)
     }
 
     override fun openDetails(it: Post) {
         mView.showTaskDetailsUi(it.title, it.url)
     }
 
-    private fun getStories() {
+    override fun getStories(refresh: Boolean) {
+        var isRefresh = refresh
+        mView.showLoading(true)
         DataManager.getStories(object : ResultCallBack<Post>{
             override fun after() {
 
             }
 
             override fun onResponse(response: Post?) {
+                if(isRefresh){
+                    mView.clearList()
+                    isRefresh = false
+                }
+                mView.showLoading(false)
                 mView.addItem(response!!)
             }
 
             override fun onError(message: String) {
-
+                mView.showLoading(false)
             }
 
         })
