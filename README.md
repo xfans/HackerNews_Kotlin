@@ -3,8 +3,8 @@ A HackerNews app written using Kotlin language base Google MVP architecture[andr
 使用Kotlin写的HackerNews客户端，基于Google MVP架构 [android-architecture](https://github.com/googlesamples/android-architecture)
 
 ##ScreenShot
-![](https://raw.githubusercontent.com/xfans/HackerNews_Kotlin/master/ScreenShot/main.png)
-![](https://raw.githubusercontent.com/xfans/HackerNews_Kotlin/master/ScreenShot/details.png)
+![](https://raw.githubusercontent.com/xfans/HackerNews_Kotlin/master/ScreenShot/main.jpg)
+![](https://raw.githubusercontent.com/xfans/HackerNews_Kotlin/master/ScreenShot/details.jpg)
 
 ##Note
 该程序为学习Kotlin写的程序，程序功能比较简单，但包括了App开发中的常见功能。
