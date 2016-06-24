@@ -6,7 +6,7 @@ buildscript {
         minSdkVersion = 11
         targetSdkVersion = 22
         compileSdkVersion = 23
-        buildToolsVersion = '23.0.2'
+        buildToolsVersion = '23.0.1'
 
         // App dependencies
         kotlin_version = '1.0.2-1'
