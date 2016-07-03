@@ -16,6 +16,7 @@
  * OkHttp - http://square.github.io/okhttp
  * Retrofit - http://square.github.io/retrofit
  * Gson - https://github.com/google/gson
+ * Realm - https://github.com/realm/realm-java
  * Support Recyclerview
  * Android Support appcompat-v7
  * Support Design
