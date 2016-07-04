@@ -1,5 +1,6 @@
 package date.xfans.app.hacknews_kotlin.date.source
 
+import android.util.Log
 import date.xfans.app.hacknews_kotlin.base.App
 import date.xfans.app.hacknews_kotlin.base.logD
 import date.xfans.app.hacknews_kotlin.date.Post
@@ -14,6 +15,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import java.io.IOException
+import java.util.*
 import kotlin.properties.Delegates
 
 /**
@@ -21,8 +23,10 @@ import kotlin.properties.Delegates
  */
 object DataManager: DataSource{
 
+    val posts = HashMap<Long,Post>()
+    val failedList = ArrayList<Int>()
     val BASE = "https://hacker-news.firebaseio.com/"
-    var hackerNewsService:HackerNewsService;
+    var hackerNewsService:HackerNewsService
     init {
 
         val interceptor = Interceptor { chain ->
@@ -41,17 +45,20 @@ object DataManager: DataSource{
         hackerNewsService.getTopStories().enqueue(object : Callback<List<Long>> {
             override fun onResponse(call: Call<List<Long>>?, response: retrofit2.Response<List<Long>>?) {
                 var list: List<Long>? = response?.body()?.take(20) //test get 20
-
+                index = 0
+                posts.clear()
+                failedList.clear()
                 list?.forEachIndexed { i, v
                     ->
                     hackerNewsService.getStoryItem(v.toString()).enqueue(object : Callback<Post>{
                     override fun onFailure(call: Call<Post>?, t: Throwable?) {
-
+                        failedList.add(i)
                     }
 
-                    override fun onResponse(call: Call<Post>?, response: retrofit2.Response<Post>?) {
-                        logD(response?.body().toString())
-                        callback.onResponse(response?.body())
+                    override fun onResponse(call: Call<Post>, response: retrofit2.Response<Post>) {
+                        posts.put(v,response.body())
+                        logD(response.body().toString())
+                        sendResponse(list, callback);
                     }
 
                 }) }
@@ -69,6 +76,24 @@ object DataManager: DataSource{
         })
     }
 
+    /**
+     * fix Response sort
+     */
+    var index = 0
+    fun sendResponse(list : List<Long>, callback : ResultCallBack<Post>){
+        synchronized(hackerNewsService){
+            if(failedList.contains(index)){
+                index ++
+            }
+            if(index < list.size) {
+                var post = posts.get(list[index])
+                if (post != null) {
+                    callback.onResponse(post)
+                    index++
+                    sendResponse(list, callback);
+                }
+            }
+        }
 
-
+    }
 }

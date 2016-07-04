@@ -9,6 +9,7 @@
 
 ##Note
 该程序为学习Kotlin写的程序，程序功能比较简单，但包括了App开发中的常见功能。
+使用时Android Studio请先安装Kotlin插件,Intellij 15及以上版本不需要安装.
 项目使用了Google官方的MVP架构 Basic Model-View-Presenter architecture。
 
 ##Libraries
@@ -16,7 +17,6 @@
  * OkHttp - http://square.github.io/okhttp
  * Retrofit - http://square.github.io/retrofit
  * Gson - https://github.com/google/gson
- * Realm - https://github.com/realm/realm-java
  * Support Recyclerview
  * Android Support appcompat-v7
  * Support Design
@@ -32,7 +32,7 @@
 
 ##Todo
  * 添加本地缓存
- * 修改获取数据顺序可能不对的bug
+ * ~~修改获取数据顺序可能不对的bug~~(fix)
 
 ##License
     Copyright 2015 xfans
