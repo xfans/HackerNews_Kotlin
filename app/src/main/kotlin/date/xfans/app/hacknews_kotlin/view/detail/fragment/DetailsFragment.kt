@@ -58,6 +58,9 @@ class DetailsFragment : Fragment(), DetailsContract.View{
         })
         var url = arguments.getString("url")
         mPresenter.openUrl(url)
+        swipeRefreshLayout.setOnRefreshListener {
+            mPresenter.openUrl(url)
+        }
     }
 
     override fun onResume() {
